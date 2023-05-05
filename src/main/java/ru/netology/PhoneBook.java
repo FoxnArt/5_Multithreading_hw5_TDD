@@ -15,6 +15,10 @@ public class PhoneBook {
         return storage.size();
     }
 
+    public String findByNumber (String number) {
+        return null;
+    }
+
     public PhoneBook() {
     }
 }

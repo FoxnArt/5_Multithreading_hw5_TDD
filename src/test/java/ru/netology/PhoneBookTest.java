@@ -12,12 +12,12 @@ public class PhoneBookTest {
     PhoneBook sut;
 
     @BeforeEach
-    public void beforeEach() {
+    public void beforeAll() {
         sut = PhoneBook.instance.get();
     }
 
     @AfterEach
-    public void afterEach() {
+    public void afterAll() {
         sut = null;
     }
 
@@ -37,6 +37,25 @@ public class PhoneBookTest {
                 Arguments.of("Petrov", "+7(965)115-23-23", 1),
                 Arguments.of("Ivanov", "+7(905)464-37-32", 2),
                 Arguments.of("Petrov", "+7(965)115-23-23", 2)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("findByNumberSource")
+    public void testfindByNumber(String number, String expected) {
+        // when:
+
+        var result = sut.findByNumber(number);
+
+        // then:
+        Assertions.assertEquals(expected, result);
+    }
+
+    public static Stream<Arguments> findByNumberSource() {
+        // given
+        return Stream.of(
+                Arguments.of("+7(965)115-23-23", "Petrov"),
+                Arguments.of("+7(905)464-37-32", "Ivanov")
         );
     }
 }
