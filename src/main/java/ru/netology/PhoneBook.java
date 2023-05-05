@@ -2,6 +2,8 @@ package ru.netology;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Supplier;
 
 public class PhoneBook {
@@ -30,6 +32,11 @@ public class PhoneBook {
             return storage.get(name);
         }
         return  null;
+    }
+
+    public void printAllNames () {
+        SortedSet<String> keySet = new TreeSet<>(storage.keySet());
+        System.out.println(keySet);
     }
 
     public PhoneBook() {
