@@ -26,7 +26,9 @@ public class PhoneBook {
     }
 
     public String findByName (String name) {
-
+        if(storage.containsKey(name)) {
+            return storage.get(name);
+        }
         return  null;
     }
 
