@@ -8,16 +8,18 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static ru.netology.PhoneBook.storage;
+
 public class PhoneBookTest {
     PhoneBook sut;
 
     @BeforeEach
-    public void beforeAll() {
+    public void beforeEach() {
         sut = PhoneBook.instance.get();
     }
 
     @AfterEach
-    public void afterAll() {
+    public void afterEach() {
         sut = null;
     }
 
@@ -30,7 +32,6 @@ public class PhoneBookTest {
         // then:
         Assertions.assertEquals(expected, result);
     }
-
     public static Stream<Arguments> addSource() {
         // given
         return Stream.of(
@@ -40,17 +41,22 @@ public class PhoneBookTest {
         );
     }
 
+
     @ParameterizedTest
     @MethodSource("findByNumberSource")
     public void testfindByNumber(String number, String expected) {
+        // given
+        storage.put("Petrov", "+7(965)115-23-23");
+        storage.put("Ivanov", "+7(905)464-37-32");
+
         // when:
 
         var result = sut.findByNumber(number);
 
         // then:
         Assertions.assertEquals(expected, result);
+        storage.clear();
     }
-
     public static Stream<Arguments> findByNumberSource() {
         // given
         return Stream.of(
@@ -58,4 +64,7 @@ public class PhoneBookTest {
                 Arguments.of("+7(905)464-37-32", "Ivanov")
         );
     }
+
+
+    
 }
