@@ -65,6 +65,27 @@ public class PhoneBookTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("findByNameSource")
+    public void testfindByName(String name, String expected) {
+        // given
+        storage.put("Petrov", "+7(965)115-23-23");
+        storage.put("Ivanov", "+7(905)464-37-32");
 
-    
+        // when:
+
+        var result = sut.findByName(name);
+
+        // then:
+        Assertions.assertEquals(expected, result);
+        storage.clear();
+    }
+    public static Stream<Arguments> findByNameSource() {
+        // given
+        return Stream.of(
+                Arguments.of("Petrov", "+7(965)115-23-23"),
+                Arguments.of("Ivanov", "+7(905)464-37-32")
+        );
+    }
+
 }
