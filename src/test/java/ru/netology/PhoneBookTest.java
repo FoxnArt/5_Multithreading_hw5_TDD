@@ -20,7 +20,7 @@ public class PhoneBookTest {
     public void afterEach() {
         sut = null;
     }
-   
+
     @ParameterizedTest
     @MethodSource("addSource")
     public void testAdd(String name, String number, int expected) {
